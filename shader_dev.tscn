@@ -1,0 +1,228 @@
+[gd_scene load_steps=12 format=2]
+
+[sub_resource type="Shader" id=1]
+
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform vec4 color : hint_color;
+uniform vec4 color2 : hint_color;
+uniform float tiling = 10.0;
+uniform float direction;
+
+float lerp(float start, float end, float percent) {return (start + percent*(end - start));}
+vec3 lerp(vec3 start, vec3 end, float percent) {return (start + percent*(end - start));}
+vec4 lerp(vec4 start, vec4 end, float percent) {return (start + percent*(end - start));}
+
+void fragment()
+{
+	float pos = lerp(UV.x, UV.y, direction) * tiling;
+	float value = floor(fract(pos) * 0.5);
+	ALBEDO = lerp( color.rgb, color2.rgb, value );
+//	ALBEDO = fract(vec3(value));
+}"
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="ShaderMaterial" id=2]
+
+render_priority = 0
+shader = SubResource( 1 )
+shader_param/color = Color( 0.231373, 0.984314, 0, 1 )
+shader_param/color2 = Color( 0, 0.109804, 1, 1 )
+shader_param/tiling = 25.3
+shader_param/direction = 1.13
+_sections_unfolded = [ "shader", "shader_param" ]
+
+[sub_resource type="CubeMesh" id=3]
+
+material = SubResource( 2 )
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+flip_faces = false
+size = Vector3( 2, 2, 2 )
+subdivide_width = 3
+subdivide_height = 3
+subdivide_depth = 3
+
+[sub_resource type="VisualShaderNodeScalarOp" id=4]
+
+output_port_for_preview = -1
+default_input_values = [ 0, 10.0, 1, 0.0 ]
+operator = 4
+
+[sub_resource type="VisualShaderNodeInput" id=5]
+
+output_port_for_preview = 0
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=6]
+
+output_port_for_preview = 0
+default_input_values = [ 0, Vector3( 0, 0, 0 ) ]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=7]
+
+output_port_for_preview = 0
+default_input_values = [ 0, 0.0, 1, 0.0, 2, 0.0 ]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=8]
+
+output_port_for_preview = 0
+default_input_values = [ 0, 10.0, 1, 0.0 ]
+operator = 2
+
+[sub_resource type="VisualShader" id=9]
+
+code = "shader_type spatial;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:2
+	vec3 n_out2p0;
+	n_out2p0 = vec3(UV,0.0);
+
+// VectorDecompose:6
+	float n_out6p0;
+	float n_out6p1;
+	float n_out6p2;
+	n_out6p0 = n_out2p0.x;
+	n_out6p1 = n_out2p0.y;
+	n_out6p2 = n_out2p0.z;
+
+// ScalarOp:10
+	float n_in10p0 = 10.00000;
+	float n_out10p0;
+	n_out10p0 = mod( n_in10p0 , n_out6p0 );
+
+// ScalarOp:9
+	float n_out9p0;
+	n_out9p0 = n_out10p0 * n_out6p0;
+
+// VectorCompose:7
+	vec3 n_out7p0;
+	n_out7p0 = vec3( n_out9p0 , n_out6p1 , n_out6p2 );
+
+// Output:0
+	ALBEDO = n_out7p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -96, -54.3439 )
+mode = 0
+modes/blend = 0
+modes/cull = 0
+modes/depth_draw = 0
+modes/diffuse = 0
+modes/specular = 0
+flags/ambient_light_disabled = false
+flags/depth_test_disable = false
+flags/ensure_correct_normals = false
+flags/shadows_disabled = false
+flags/skip_vertex_transform = false
+flags/unshaded = false
+flags/vertex_lighting = false
+flags/world_vertex_coords = false
+nodes/vertex/0/position = Vector2( 400, 150 )
+nodes/vertex/connections = PoolIntArray(  )
+nodes/fragment/0/position = Vector2( 580, 80 )
+nodes/fragment/2/node = SubResource( 5 )
+nodes/fragment/2/position = Vector2( -500, 180 )
+nodes/fragment/6/node = SubResource( 6 )
+nodes/fragment/6/position = Vector2( -280, 180 )
+nodes/fragment/7/node = SubResource( 7 )
+nodes/fragment/7/position = Vector2( 320, 120 )
+nodes/fragment/9/node = SubResource( 8 )
+nodes/fragment/9/position = Vector2( 140, -40 )
+nodes/fragment/10/node = SubResource( 4 )
+nodes/fragment/10/position = Vector2( -40, -60 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 6, 0, 6, 0, 9, 1, 9, 0, 7, 0, 7, 0, 0, 0, 6, 1, 7, 1, 6, 2, 7, 2, 6, 0, 10, 1, 10, 0, 9, 0 )
+nodes/light/0/position = Vector2( 400, 150 )
+nodes/light/connections = PoolIntArray(  )
+_sections_unfolded = [ "Resource", "modes" ]
+
+[sub_resource type="ShaderMaterial" id=10]
+
+render_priority = 0
+shader = SubResource( 9 )
+_sections_unfolded = [ "shader", "shader_param" ]
+
+[sub_resource type="ShaderMaterial" id=11]
+
+render_priority = 0
+shader = SubResource( 9 )
+_sections_unfolded = [ "shader", "shader_param" ]
+
+[node name="Spatial2" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.12856, 6.12727 )
+keep_aspect = 1
+cull_mask = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+doppler_tracking = 0
+projection = 0
+current = false
+fov = 70.0
+size = 1.0
+near = 0.05
+far = 100.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 3 )
+skeleton = NodePath("..")
+material/0 = SubResource( 10 )
+_sections_unfolded = [ "material" ]
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.87145, 0, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 3 )
+skeleton = NodePath("..")
+material/0 = SubResource( 11 )
+_sections_unfolded = [ "material" ]
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4083, 0, 2.31663 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 3 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "Geometry", "LOD", "material", "mesh" ]
+

@@ -1,0 +1,697 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://shader_dev.tscn" type="PackedScene" id=1]
+[ext_resource path="res://player.gd" type="Script" id=2]
+[ext_resource path="res://gun.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://particles.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="CubeMesh" id=3]
+material = SubResource( 2 )
+size = Vector3( 60, 10, 60 )
+subdivide_width = 1
+subdivide_height = 1
+subdivide_depth = 1
+
+[sub_resource type="PrismMesh" id=4]
+
+[sub_resource type="PrismMesh" id=5]
+
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="ProceduralSky" id=7]
+sky_top_color = Color( 0.647059, 0.839216, 0.945098, 1 )
+sky_horizon_color = Color( 0.839216, 0.917647, 0.980392, 1 )
+ground_bottom_color = Color( 0.156863, 0.184314, 0.211765, 1 )
+ground_horizon_color = Color( 0.423529, 0.396078, 0.372549, 1 )
+sun_energy = 16.0
+
+[sub_resource type="Environment" id=8]
+background_mode = 1
+background_sky = SubResource( 7 )
+background_sky_custom_fov = 59.2
+background_color = Color( 0.14902, 0.168627, 0.219608, 1 )
+ambient_light_color = Color( 0.0705882, 0.0666667, 0.0745098, 1 )
+fog_enabled = true
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.819608, 0.8, 0.882353, 1 )
+fog_sun_amount = 0.07
+fog_depth_curve = 0.63728
+fog_height_max = 50.0
+ssao_radius = 0.1
+ssao_intensity = 2.6
+ssao_color = Color( 0.658824, 0.25098, 0.25098, 1 )
+dof_blur_far_distance = 1.26405
+dof_blur_near_distance = 1.00373
+glow_enabled = true
+glow_intensity = 0.9
+glow_strength = 0.87
+glow_bloom = 0.2
+glow_blend_mode = 1
+adjustment_enabled = true
+adjustment_brightness = 1.51
+adjustment_contrast = 1.4
+adjustment_saturation = 1.2
+
+[sub_resource type="CylinderMesh" id=9]
+
+[sub_resource type="CubeMesh" id=10]
+
+[sub_resource type="CylinderMesh" id=11]
+
+[sub_resource type="CapsuleShape" id=12]
+radius = 0.6
+height = 2.0
+
+[sub_resource type="Animation" id=13]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera/hand:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.276485, -0.358211, -0.0438781 ), Vector3( 0.00400001, -0.037, 0.0861218 ) ]
+}
+
+[sub_resource type="CapsuleMesh" id=14]
+radius = 0.4
+mid_height = 2.0
+
+[sub_resource type="PhysicsMaterial" id=15]
+rough = true
+absorbent = true
+
+[sub_resource type="BoxShape" id=16]
+extents = Vector3( 0.134963, 0.133912, 0.44157 )
+
+[sub_resource type="CylinderMesh" id=17]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Terrain2" type="Spatial" parent="."]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47978, 0 )
+
+[node name="Ground" type="CSGMesh" parent="Terrain2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.51072, 0 )
+use_collision = true
+mesh = SubResource( 3 )
+
+[node name="Room" type="CSGBox" parent="Terrain2/Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0310106, 7.32159, 0.0181417 )
+width = 12.7948
+height = 4.75914
+depth = 8.40722
+
+[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
+operation = 2
+width = 11.456
+height = 4.46604
+depth = 7.80231
+
+[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
+operation = 2
+width = 3.65959
+height = 3.55471
+depth = 1.68275
+
+[node name="Light" type="OmniLight" parent="Terrain2/Ground/Room"]
+transform = Transform( 1, 0, 0, 0, -0.0051538, 0.999987, 0, -0.999987, -0.0051538, 0.187179, -1.88037, -0.422344 )
+light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
+light_energy = 2.8
+light_indirect_energy = 6.4
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 13.0842
+
+[node name="Room2" type="CSGBox" parent="Terrain2/Ground"]
+transform = Transform( 0.581191, 0, -0.813767, 0, 1, 0, 0.813767, 0, 0.581191, 5.70813, 7.37969, -11.4317 )
+width = 12.7948
+height = 4.75914
+depth = 8.40722
+
+[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
+operation = 2
+width = 11.456
+height = 4.46604
+depth = 7.80231
+
+[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
+operation = 2
+width = 3.65959
+height = 3.55471
+depth = 1.68275
+
+[node name="Light2" type="OmniLight" parent="Terrain2/Ground/Room2"]
+transform = Transform( 0.581191, -0.813756, -0.00419399, 0, -0.0051538, 0.999987, -0.813767, -0.581183, -0.00299534, -2.18276, -1.93847, -1.21113 )
+light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
+light_energy = 2.8
+light_indirect_energy = 6.4
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 13.0842
+
+[node name="Room3" type="CSGBox" parent="Terrain2/Ground"]
+transform = Transform( -0.997074, 0, 0.076444, 0, 1, 0, -0.076444, 0, -0.997074, 21.8232, 7.37969, 0.676435 )
+width = 12.7948
+height = 4.75914
+depth = 8.40722
+
+[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
+operation = 2
+width = 11.456
+height = 4.46604
+depth = 7.80231
+
+[node name="CSGBox4" type="CSGBox" parent="Terrain2/Ground/Room3"]
+transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0.778374, -0.2541, 4.25897 )
+operation = 2
+width = 0.384324
+height = 2.76391
+depth = 1.63528
+
+[node name="CSGBox5" type="CSGBox" parent="Terrain2/Ground/Room3"]
+transform = Transform( 1, 0, 5.96046e-008, 0, 1, 0, -5.96046e-008, 0, 1, 1.48841, -0.2541, 4.20454 )
+operation = 2
+width = 0.384324
+height = 1.80902
+depth = 1.63528
+
+[node name="CSGBox6" type="CSGBox" parent="Terrain2/Ground/Room3"]
+transform = Transform( 1, 0, 8.9407e-008, 0, 1, 0, -8.9407e-008, 0, 1, 0.107485, -0.2541, 4.31041 )
+operation = 2
+width = 0.384324
+height = 1.80902
+depth = 1.63528
+
+[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
+operation = 2
+width = 3.65959
+height = 3.55471
+depth = 1.68275
+
+[node name="Light3" type="OmniLight" parent="Terrain2/Ground/Room3"]
+transform = Transform( -0.997074, 0.076443, 0.000393977, 0, -0.0051538, 0.999987, 0.076444, 0.997061, 0.00513872, 0.0914993, 0.398611, 0.913559 )
+light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
+light_indirect_energy = 6.4
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 13.0842
+
+[node name="Room4" type="CSGBox" parent="Terrain2/Ground"]
+transform = Transform( -0.84618, 0, -0.532898, 0, 1, 0, 0.532898, 0, -0.84618, 27.1242, 7.37969, -28.4247 )
+width = 12.7948
+height = 4.75914
+depth = 8.40722
+
+[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
+operation = 2
+width = 11.456
+height = 4.46604
+depth = 7.80231
+
+[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
+operation = 2
+width = 3.65959
+height = 3.55471
+depth = 1.68275
+
+[node name="Light3" type="OmniLight" parent="Terrain2/Ground/Room4"]
+transform = Transform( -0.997074, 0.076443, 0.000393977, 0, -0.0051538, 0.999987, 0.076444, 0.997061, 0.00513872, 0.0914955, -1.93847, 0.913559 )
+light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
+light_indirect_energy = 6.4
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 13.0842
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/Ground"]
+transform = Transform( 22.354, 0, 0, 0, 10.9874, 0, 0, 0, 9.66302, -30.4217, 1.58721, 22.8199 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/Ground"]
+transform = Transform( 15.4147, 0, 6.99811, 0, 10.9874, 0, -16.1891, 0, 6.66336, -30.4217, 7.05939, -27.7643 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/Ground"]
+transform = Transform( 15.4147, 0, 6.99811, 0, 10.9874, 0, -16.1891, 0, 6.66336, -30.4217, 7.05939, -0.373756 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/Ground"]
+transform = Transform( 15.3314, -1.14043, 6.96031, 1.59997, 10.928, 0.726367, -16.1891, 0, 6.66336, -9.49636, 7.05939, 37.5039 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="Terrain2/Ground"]
+transform = Transform( 20.3948, -0.382655, -3.94164, 1.59997, 10.928, 0.726367, 9.01063, -1.07432, 8.7926, -21.0756, 7.05939, 45.129 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="palm" type="CSGMesh" parent="Terrain2"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -0.902885, 14.1672, -3.75562, 15.5695 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1.78996, 0, 0, 0, 1, 0, 0, 0, 2.23664, 0.206908, 0, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh7" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.816717, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 7.24895, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh7"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 1.45977, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh2"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh8" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.687958, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 8.70872, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh8"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 2.84119, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh3"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh10" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.792007, 0, 0, 0, 1, 0, 0, 0, 0.645433, 0.206908, 10.0901, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh10"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 3.85881, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh4"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh11" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.772026, 0, 0, 0, 1, 0, 0, 0, 1.01206, 0.206908, 11.1078, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh11"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh5" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 5.11337, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh5"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh9" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.746296, 0, 0, 0, 1, 0, 0, 0, 0.838377, 0.206908, 12.3623, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh9"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh6" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.679146, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 6.01573, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh6"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh12" type="CSGMesh" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 13.2647, -0.45332 )
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh12"]
+transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
+mesh = SubResource( 5 )
+
+[node name="leaf" type="Spatial" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 0.105164, 0, 0, 0, 1, 0, 15.2855, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf"]
+transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf"]
+transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="leaf2" type="Spatial" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.211676, 0, 0.882426, 0, 0.105164, 0, -1.08246, 0, 0.211676, 9.53674e-007, 15.2855, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf2"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf2"]
+transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf2"]
+transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="leaf5" type="Spatial" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.739411, -0.0350207, 0.528304, 0.131428, 0.0971479, 0.324735, -0.731324, -0.0220181, 0.72682, 9.53674e-007, 15.2855, 3.8147e-006 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf5"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf5"]
+transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf5"]
+transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="leaf6" type="Spatial" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( 0.443408, 0.0662123, -0.575994, 0.172462, 0.0671482, 0.6772, 0.974179, -0.0515513, 0.174537, 0.831673, 15.2855, 7.62939e-006 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf6"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf6"]
+transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf6"]
+transform = Transform( 1.29164, 3.72529e-009, 0, 0, 2.12765, -8.34465e-007, -2.98023e-008, 9.31323e-009, 1.93158, -0.0116973, -0.509872, 2.68212 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="leaf3" type="Spatial" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( -0.939359, 0, 0.309633, -0.12422, 0.098022, -0.307214, -0.35403, -0.04219, -0.875568, -1.02738, 15.2855, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf3"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf3"]
+transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf3"]
+transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="leaf4" type="Spatial" parent="Terrain2/palm"]
+editor/display_folded = true
+transform = Transform( -0.529448, -0.0266681, -0.730935, -0.0891424, 0.101549, -0.220462, 0.934389, -0.00665217, -0.533854, -1.02738, 15.2855, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf4"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf4"]
+transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf4"]
+transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance" parent="Terrain2" instance=ExtResource( 1 )]
+transform = Transform( 0.924287, 0, 0.381699, 0, 1, 0, -0.381699, 0, 0.924287, 10.0721, -3.63001, 2.45556 )
+
+[node name="Player" type="KinematicBody" parent="."]
+transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.8812, 1.86753, -5.11114 )
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="Player"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97054, 0 )
+environment = SubResource( 8 )
+current = true
+fov = 90.0
+near = 0.01
+far = 1000.0
+
+[node name="hand" type="Spatial" parent="Player/Camera"]
+transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0.00400001, -0.037, 0.0861218 )
+
+[node name="ConeTwistJoint" type="ConeTwistJoint" parent="Player/Camera/hand"]
+transform = Transform( 0.0366218, 0, -0.999329, 0, 1, 0, 0.999329, 0, 0.0366218, -0.00676727, -0.158679, -0.489577 )
+nodes/node_a = NodePath("../../..")
+nodes/node_b = NodePath("../../../../Gun Dynamic")
+collision/exclude_nodes = false
+swing_span = 180.0
+twist_span = 10.0
+bias = 1.0
+softness = 0.01
+relaxation = 4.0
+
+[node name="gun" type="CSGMesh" parent="Player/Camera/hand"]
+transform = Transform( 0.0486803, 0, 0, 0, 4.84675e-008, 0.0343221, 0, -0.641972, 2.59125e-009, -0.00388551, 0, -0.764 )
+mesh = SubResource( 9 )
+script = ExtResource( 3 )
+
+[node name="sight" type="Spatial" parent="Player/Camera/hand/gun"]
+transform = Transform( 0.605422, -3.7301e-015, 5.88791e-024, 0, -1.88552e-008, -0.015577, 5.23529e-015, 0.431357, -6.80892e-010, 1.52588e-005, -0.932856, -0.0226898 )
+
+[node name="back" type="CSGMesh" parent="Player/Camera/hand/gun/sight"]
+transform = Transform( 1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 2.01076, -4.3991 )
+mesh = SubResource( 10 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Player/Camera/hand/gun/sight/back"]
+transform = Transform( 0.0800001, 0, 0, 0, 0.6, 0, 0, 0, 1.1, 0, 1, 0 )
+operation = 2
+mesh = SubResource( 10 )
+
+[node name="front" type="CSGMesh" parent="Player/Camera/hand/gun/sight"]
+transform = Transform( 1.14, 0, 0, 0, 2.14, 0, 0, 0, 1, 0, 3.72076, -120.076 )
+operation = 2
+mesh = SubResource( 10 )
+
+[node name="mag" type="Spatial" parent="Player/Camera/hand/gun"]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, -1.13687e-012, 1, 0, 0.208812, -1.53743 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.51532e-007, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.48727e-007, -0.694992 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance6" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.45781e-007, -1.42479 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance7" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.42996e-007, -2.11472 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.50111e-007, -0.352043 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.47306e-007, -1.04702 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.4436e-007, -1.77683 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance8" type="MeshInstance" parent="Player/Camera/hand/gun/mag"]
+transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.41575e-007, -2.46677 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Sprite3D" type="Sprite3D" parent="Player/Camera/hand/gun"]
+transform = Transform( 20, 0, 0, 0, -5.6426e-006, -20, 0, 20, -5.64259e-006, 0, 1.072, 2.31975 )
+visible = false
+texture = ExtResource( 4 )
+
+[node name="Collision" type="RayCast" parent="Player/Camera/hand/gun"]
+transform = Transform( 20.5422, 0, 0, 0, -1.5577, -4.95139e-008, 0, 9.26124e-007, -29.1357, 0.079834, -0.530481, 0.100754 )
+enabled = true
+
+[node name="SpotLight" type="SpotLight" parent="Player/Camera/hand/gun"]
+transform = Transform( 18.8527, -8.15193, -0.32343, 0.00510275, 0.0735335, -1.55596, 11.5709, 26.708, 1.30015, -0.374634, 0.738578, 2.74306 )
+light_color = Color( 0.694118, 0.847059, 0.945098, 1 )
+light_energy = 0.3
+spot_range = 30.0
+spot_attenuation = 2.54912
+spot_angle = 18.0
+spot_angle_attenuation = 1.8025
+
+[node name="ui" type="Control" parent="Player/Camera"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Player/Camera/ui"]
+margin_right = 216.0
+margin_bottom = 97.0
+text = "---
+"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="CollisionShape" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
+shape = SubResource( 12 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+anims/aim = SubResource( 13 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, -0.289302, 0 )
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="bot" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.465025, 0, 0.885298, -0.00686889, 0.99997, -0.00360805, -0.885271, -0.00775884, -0.465011, 6.2614, 1.86753, -8.75094 )
+
+[node name="Gun Dynamic" type="RigidBody" parent="."]
+editor/display_folded = true
+transform = Transform( -0.0153912, 0.185066, 0.982606, 0.0342649, 0.982242, -0.184461, -0.999294, 0.0308298, -0.0214592, 10.513, 2.21708, -5.69315 )
+visible = false
+physics_material_override = SubResource( 15 )
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="Gun Dynamic"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.375562 )
+shape = SubResource( 16 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Gun Dynamic"]
+transform = Transform( 0.0310325, 0, 0, 0, -1.62921e-007, -0.0420421, 0, 0.387698, -2.65555e-009, 0, 0, -0.336566 )
+mesh = SubResource( 17 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Gun Dynamic"]
+transform = Transform( 0.0310325, 0, 0, 0, -3.17337e-007, -0.0818897, 0, 0.107022, -7.3305e-010, 0, -0.0558445, 0.0898399 )
+mesh = SubResource( 17 )
+
+[node name="CSGMesh5" type="CSGMesh" parent="Gun Dynamic"]
+transform = Transform( 0.0257344, 0, 0, 0, -2.45379e-007, -0.0633208, 0, 0.285727, -1.9571e-009, 0, -0.0296297, -0.235138 )
+mesh = SubResource( 17 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="Gun Dynamic"]
+transform = Transform( 0.0310325, 0, 0, 0, -0.0978192, -0.0225965, 0, 0.020398, -0.0516995, 0, -0.100367, -0.0700169 )
+mesh = SubResource( 17 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="Gun Dynamic"]
+transform = Transform( 0.0310325, 0, 0, 0, -5.07631e-007, -0.130995, 0, 0.0703418, -4.81808e-010, 0, -0.0558445, 0.259858 )
+mesh = SubResource( 17 )
+
+[node name="Spatial" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -12.2272 )
+visible = false
+[connection signal="visibility_changed" from="Player/Camera/hand/gun/Collision" to="Player/Camera/hand/gun" method="_on_Collision_visibility_changed"]
