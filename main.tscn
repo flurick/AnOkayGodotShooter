@@ -2,10 +2,11 @@
 
 [ext_resource path="res://shader_dev.tscn" type="PackedScene" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
-[ext_resource path="res://gun.gd" type="Script" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
-[ext_resource path="res://bot.tscn" type="PackedScene" id=5]
-[ext_resource path="res://particles.tscn" type="PackedScene" id=6]
+[ext_resource path="res://night.tres" type="Environment" id=3]
+[ext_resource path="res://gun.gd" type="Script" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://particles.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Shader" id=1]
 
@@ -25,45 +26,14 @@ subdivide_depth = 1
 
 [sub_resource type="CubeMesh" id=6]
 
-[sub_resource type="ProceduralSky" id=7]
-sky_top_color = Color( 0.647059, 0.839216, 0.945098, 1 )
-sky_horizon_color = Color( 0.839216, 0.917647, 0.980392, 1 )
-ground_bottom_color = Color( 0.156863, 0.184314, 0.211765, 1 )
-ground_horizon_color = Color( 0.423529, 0.396078, 0.372549, 1 )
-sun_energy = 16.0
-
-[sub_resource type="Environment" id=8]
-background_mode = 1
-background_sky = SubResource( 7 )
-background_sky_custom_fov = 59.2
-background_color = Color( 0.14902, 0.168627, 0.219608, 1 )
-ambient_light_color = Color( 0.0705882, 0.0666667, 0.0745098, 1 )
-fog_enabled = true
-fog_color = Color( 0, 0, 0, 1 )
-fog_sun_color = Color( 0.819608, 0.8, 0.882353, 1 )
-fog_sun_amount = 0.07
-fog_depth_curve = 0.63728
-fog_height_max = 50.0
-ssao_radius = 0.1
-ssao_intensity = 2.6
-ssao_color = Color( 0.658824, 0.25098, 0.25098, 1 )
-dof_blur_far_distance = 1.26405
-dof_blur_near_distance = 1.00373
-glow_enabled = true
-glow_intensity = 0.9
-glow_strength = 0.87
-glow_bloom = 0.2
-glow_blend_mode = 1
-adjustment_enabled = true
-adjustment_brightness = 1.51
-adjustment_contrast = 1.4
-adjustment_saturation = 1.2
-
 [sub_resource type="CylinderMesh" id=9]
 
 [sub_resource type="CubeMesh" id=10]
 
 [sub_resource type="CylinderMesh" id=11]
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 1, 1, 1, 0.054902 )
 
 [sub_resource type="CapsuleShape" id=12]
 radius = 0.6
@@ -99,10 +69,10 @@ extents = Vector3( 0.134963, 0.133912, 0.44157 )
 [node name="Spatial" type="Spatial"]
 
 [node name="Terrain2" type="Spatial" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47978, 0 )
 
 [node name="Ground" type="CSGMesh" parent="Terrain2"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.51072, 0 )
 use_collision = true
 mesh = SubResource( 3 )
@@ -521,17 +491,14 @@ material/0 = null
 transform = Transform( 0.924287, 0, 0.381699, 0, 1, 0, -0.381699, 0, 0.924287, 10.0721, -3.63001, 2.45556 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.8812, 1.86753, -5.11114 )
+transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.881, 4.828, -5.111 )
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="Player"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97054, 0 )
-environment = SubResource( 8 )
+environment = ExtResource( 3 )
 current = true
 fov = 90.0
-near = 0.01
-far = 1000.0
 
 [node name="hand" type="Spatial" parent="Player/Camera"]
 transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0.00400001, -0.037, 0.0861218 )
@@ -548,9 +515,10 @@ softness = 0.01
 relaxation = 4.0
 
 [node name="gun" type="CSGMesh" parent="Player/Camera/hand"]
+editor/display_folded = true
 transform = Transform( 0.0486803, 0, 0, 0, 4.84675e-008, 0.0343221, 0, -0.641972, 2.59125e-009, -0.00388551, 0, -0.764 )
 mesh = SubResource( 9 )
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="sight" type="Spatial" parent="Player/Camera/hand/gun"]
 transform = Transform( 0.605422, -3.7301e-015, 5.88791e-024, 0, -1.88552e-008, -0.015577, 5.23529e-015, 0.431357, -6.80892e-010, 1.52588e-005, -0.932856, -0.0226898 )
@@ -616,7 +584,7 @@ material/0 = null
 [node name="Sprite3D" type="Sprite3D" parent="Player/Camera/hand/gun"]
 transform = Transform( 20, 0, 0, 0, -5.6426e-006, -20, 0, 20, -5.64259e-006, 0, 1.072, 2.31975 )
 visible = false
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Collision" type="RayCast" parent="Player/Camera/hand/gun"]
 transform = Transform( 20.5422, 0, 0, 0, -1.5577, -4.95139e-008, 0, 9.26124e-007, -29.1357, 0.079834, -0.530481, 0.100754 )
@@ -644,6 +612,29 @@ align = 1
 valign = 1
 uppercase = true
 
+[node name="Panel" type="Panel" parent="Player/Camera/ui"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -128.0
+margin_top = -89.0
+margin_right = 129.0
+margin_bottom = -13.0
+custom_styles/panel = SubResource( 18 )
+
+[node name="Help" type="Label" parent="Player/Camera/ui/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 11.0
+text = "WASD : MOVE
+SPACE : JUMP
+SHIFT : RUN
+"
+align = 1
+valign = 1
+autowrap = true
+
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
 shape = SubResource( 12 )
@@ -656,11 +647,10 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, -0
 mesh = SubResource( 14 )
 material/0 = null
 
-[node name="bot" parent="." instance=ExtResource( 5 )]
+[node name="bot" parent="." instance=ExtResource( 6 )]
 transform = Transform( -0.465025, 0, 0.885298, -0.00686889, 0.99997, -0.00360805, -0.885271, -0.00775884, -0.465011, 6.2614, 1.86753, -8.75094 )
 
 [node name="Gun Dynamic" type="RigidBody" parent="."]
-editor/display_folded = true
 transform = Transform( -0.0153912, 0.185066, 0.982606, 0.0342649, 0.982242, -0.184461, -0.999294, 0.0308298, -0.0214592, 10.513, 2.21708, -5.69315 )
 visible = false
 physics_material_override = SubResource( 15 )
@@ -691,7 +681,7 @@ mesh = SubResource( 17 )
 transform = Transform( 0.0310325, 0, 0, 0, -5.07631e-007, -0.130995, 0, 0.0703418, -4.81808e-010, 0, -0.0558445, 0.259858 )
 mesh = SubResource( 17 )
 
-[node name="Spatial" parent="." instance=ExtResource( 6 )]
+[node name="Spatial" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -12.2272 )
 visible = false
 [connection signal="visibility_changed" from="Player/Camera/hand/gun/Collision" to="Player/Camera/hand/gun" method="_on_Collision_visibility_changed"]
