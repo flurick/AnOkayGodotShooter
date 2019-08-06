@@ -5,8 +5,8 @@ var mouse_sense_x = -0.005
 var mouse_sense_y = -0.005
 var input_movement = Vector3(0,0,0)
 var output_movement  = Vector3(0,0,0)
-var speed_walking = 100
-var speed_running = 300
+var speed_walking = 200
+var speed_running = 400
 var down = Vector3(0,1,0)
 var limit_neck_angle = 90
 var forward = -get_global_transform().basis.z
@@ -44,8 +44,11 @@ func _process(delta):
 	#apply
 	output_movement += forward * input_movement.z
 	output_movement += right * input_movement.x
-	move_and_slide(output_movement*speed_running*delta, down)
-
+	if Input.is_key_pressed(KEY_SHIFT) or Input.is_key_pressed(KEY_CONTROL):
+		move_and_slide(output_movement*speed_running*delta, down)
+	else:
+		move_and_slide(output_movement*speed_walking*delta, down)
+	
 	#gravity
 	if Input.is_action_pressed("jump") and overheat_jump < overheat_limit_jump:
 		move_and_slide(down*speed_jump, down)
@@ -54,7 +57,8 @@ func _process(delta):
 		move_and_slide(-down*gravity, down)
 	if is_on_floor():
 		overheat_jump = 0
-	$Camera/ui/Label.text = str( overheat_jump, "floor:",is_on_floor(),"ceiling:",is_on_ceiling(),"wall:",is_on_wall() )
+	
+	$Camera/ui/Label.text = str( overheat_jump, "floor:",is_on_floor()," ceiling:",is_on_ceiling()," wall:",is_on_wall() )
 
 
 
