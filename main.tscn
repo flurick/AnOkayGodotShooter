@@ -541,6 +541,9 @@ margin_top = 11.0
 text = "WASD : MOVE
 SPACE : JUMP
 SHIFT : RUN
+          F : FLASHLIGHT
+  CLICK : SHOOT
+LEFT CLICK : AIM        - 
 "
 align = 1
 valign = 1
