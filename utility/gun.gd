@@ -23,7 +23,7 @@ func use():
 	if $Trajectory.is_colliding():
 		var new:Sprite3D = $"Impact Area".duplicate()
 		get_tree().root.add_child(new) 
-		new.look_at(transform.origin, Vector3.UP)
+		new.rotation = $Trajectory.get_collision_normal()
 		new.visible = true
 		new.scale = Vector3.ONE * 0.01
 		new.transform.origin = $Trajectory .get_collision_point()
