@@ -1,0 +1,50 @@
+[gd_scene format=2]
+
+[node name="Room3" type="CSGBox"]
+transform = Transform( -0.997074, 0, 0.076444, 0, 1, 0, -0.076444, 0, -0.997074, 21.8232, 7.37969, 0.676435 )
+width = 12.7948
+height = 4.75914
+depth = 8.40722
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
+operation = 2
+width = 11.456
+height = 4.46604
+depth = 7.80231
+
+[node name="CSGBox4" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0.778374, -0.2541, 4.25897 )
+operation = 2
+width = 0.384324
+height = 2.76391
+depth = 1.63528
+
+[node name="CSGBox5" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 5.96046e-008, 0, 1, 0, -5.96046e-008, 0, 1, 1.48841, -0.2541, 4.20454 )
+operation = 2
+width = 0.384324
+height = 1.80902
+depth = 1.63528
+
+[node name="CSGBox6" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 8.9407e-008, 0, 1, 0, -8.9407e-008, 0, 1, 0.107485, -0.2541, 4.31041 )
+operation = 2
+width = 0.384324
+height = 1.80902
+depth = 1.63528
+
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
+operation = 2
+width = 3.65959
+height = 3.55471
+depth = 1.68275
+
+[node name="Light3" type="OmniLight" parent="."]
+transform = Transform( -0.997074, 0.076443, 0.000393977, 0, -0.0051538, 0.999987, 0.076444, 0.997061, 0.00513872, 0.0914993, 0.398611, 0.913559 )
+light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
+light_indirect_energy = 6.4
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 13.0842

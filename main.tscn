@@ -1,11 +1,15 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://shader_dev.tscn" type="PackedScene" id=1]
-[ext_resource path="res://player.gd" type="Script" id=2]
-[ext_resource path="res://night.tres" type="Environment" id=3]
-[ext_resource path="res://gun.tscn" type="PackedScene" id=4]
-[ext_resource path="res://bot.tscn" type="PackedScene" id=5]
-[ext_resource path="res://particles.tscn" type="PackedScene" id=6]
+[ext_resource path="res://architecture/Drain pipe.tscn" type="PackedScene" id=1]
+[ext_resource path="res://architecture/Room.tscn" type="PackedScene" id=2]
+[ext_resource path="res://nature/Tree.tscn" type="PackedScene" id=3]
+[ext_resource path="res://shader_dev.tscn" type="PackedScene" id=4]
+[ext_resource path="res://player.gd" type="Script" id=5]
+[ext_resource path="res://night.tres" type="Environment" id=6]
+[ext_resource path="res://gun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=8]
+[ext_resource path="res://particles.tscn" type="PackedScene" id=9]
+[ext_resource path="res://snd/Wind.wav" type="AudioStream" id=10]
 
 [sub_resource type="Shader" id=1]
 
@@ -14,25 +18,21 @@ shader = SubResource( 1 )
 
 [sub_resource type="CubeMesh" id=3]
 material = SubResource( 2 )
-size = Vector3( 60, 10, 60 )
+size = Vector3( 500, 10, 500 )
 subdivide_width = 1
 subdivide_height = 1
 subdivide_depth = 1
 
 [sub_resource type="PrismMesh" id=4]
 
-[sub_resource type="PrismMesh" id=5]
-
-[sub_resource type="CubeMesh" id=6]
-
-[sub_resource type="StyleBoxFlat" id=18]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 1, 1, 0.054902 )
 
-[sub_resource type="CapsuleShape" id=12]
+[sub_resource type="CapsuleShape" id=8]
 radius = 0.6
 height = 2.0
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera/hand:translation")
 tracks/0/interp = 1
@@ -46,23 +46,26 @@ tracks/0/keys = {
 "values": [ Vector3( 0.276485, -0.358211, -0.0438781 ), Vector3( 0.00400001, -0.037, 0.0861218 ) ]
 }
 
-[sub_resource type="CapsuleMesh" id=14]
+[sub_resource type="CapsuleMesh" id=10]
 radius = 0.4
 mid_height = 2.0
 
-[sub_resource type="PhysicsMaterial" id=15]
+[sub_resource type="PhysicsMaterial" id=11]
 rough = true
 absorbent = true
 
-[sub_resource type="BoxShape" id=16]
+[sub_resource type="BoxShape" id=12]
 extents = Vector3( 0.134963, 0.133912, 0.44157 )
 
-[sub_resource type="CylinderMesh" id=17]
+[sub_resource type="CylinderMesh" id=13]
 
 [node name="Spatial" type="Spatial"]
 
 [node name="Terrain2" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47978, 0 )
+
+[node name="Drain pipe2" parent="Terrain2" instance=ExtResource( 1 )]
+transform = Transform( 0.617751, 0, -0.786374, 0, 1, 0, 0.786374, 0, 0.617751, 24.3958, -4.18913, -21.2537 )
 
 [node name="Ground" type="CSGMesh" parent="Terrain2"]
 editor/display_folded = true
@@ -99,6 +102,9 @@ light_specular = 1.0
 shadow_enabled = true
 omni_range = 13.0842
 
+[node name="Drain pipe" parent="Terrain2/Ground/Room" instance=ExtResource( 1 )]
+transform = Transform( 0.951801, 0, -0.306718, 0, 1, 0, 0.306718, 0, 0.951801, 6.80115, -1.88758, -3.95384 )
+
 [node name="Room2" type="CSGBox" parent="Terrain2/Ground"]
 transform = Transform( 0.581191, 0, -0.813767, 0, 1, 0, 0.813767, 0, 0.581191, 5.70813, 7.37969, -11.4317 )
 width = 12.7948
@@ -128,56 +134,10 @@ light_specular = 1.0
 shadow_enabled = true
 omni_range = 13.0842
 
-[node name="Room3" type="CSGBox" parent="Terrain2/Ground"]
-transform = Transform( -0.997074, 0, 0.076444, 0, 1, 0, -0.076444, 0, -0.997074, 21.8232, 7.37969, 0.676435 )
-width = 12.7948
-height = 4.75914
-depth = 8.40722
-
-[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
-operation = 2
-width = 11.456
-height = 4.46604
-depth = 7.80231
-
-[node name="CSGBox4" type="CSGBox" parent="Terrain2/Ground/Room3"]
-transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0.778374, -0.2541, 4.25897 )
-operation = 2
-width = 0.384324
-height = 2.76391
-depth = 1.63528
-
-[node name="CSGBox5" type="CSGBox" parent="Terrain2/Ground/Room3"]
-transform = Transform( 1, 0, 5.96046e-008, 0, 1, 0, -5.96046e-008, 0, 1, 1.48841, -0.2541, 4.20454 )
-operation = 2
-width = 0.384324
-height = 1.80902
-depth = 1.63528
-
-[node name="CSGBox6" type="CSGBox" parent="Terrain2/Ground/Room3"]
-transform = Transform( 1, 0, 8.9407e-008, 0, 1, 0, -8.9407e-008, 0, 1, 0.107485, -0.2541, 4.31041 )
-operation = 2
-width = 0.384324
-height = 1.80902
-depth = 1.63528
-
-[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
-operation = 2
-width = 3.65959
-height = 3.55471
-depth = 1.68275
-
-[node name="Light3" type="OmniLight" parent="Terrain2/Ground/Room3"]
-transform = Transform( -0.997074, 0.076443, 0.000393977, 0, -0.0051538, 0.999987, 0.076444, 0.997061, 0.00513872, 0.0914993, 0.398611, 0.913559 )
-light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
-light_indirect_energy = 6.4
-light_specular = 1.0
-shadow_enabled = true
-omni_range = 13.0842
+[node name="Room3" parent="Terrain2/Ground" instance=ExtResource( 2 )]
 
 [node name="Room4" type="CSGBox" parent="Terrain2/Ground"]
+editor/display_folded = true
 transform = Transform( -0.84618, 0, -0.532898, 0, 1, 0, 0.532898, 0, -0.84618, 27.1242, 7.37969, -28.4247 )
 width = 12.7948
 height = 4.75914
@@ -230,266 +190,22 @@ transform = Transform( 20.3948, -0.382655, -3.94164, 1.59997, 10.928, 0.726367, 
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="palm" type="CSGMesh" parent="Terrain2"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -0.902885, 14.1672, -3.75562, 15.5695 )
+[node name="Tree" parent="Terrain2" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 7.35, 0, 0, 0, 1, 23.8261, 3.29498, -12.4428 )
 
-[node name="CSGMesh" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1.78996, 0, 0, 0, 1, 0, 0, 0, 2.23664, 0.206908, 0, -0.45332 )
-mesh = SubResource( 5 )
+[node name="Tree2" parent="Terrain2" instance=ExtResource( 3 )]
+transform = Transform( -0.166717, 0, 0.986005, 0, 7.35, 0, -0.986005, 0, -0.166717, 15.5594, 3.29498, 20.0175 )
 
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh7" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.816717, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 7.24895, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh7"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 1.45977, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh2"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh8" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.687958, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 8.70872, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh8"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh3" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 2.84119, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh3"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh10" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.792007, 0, 0, 0, 1, 0, 0, 0, 0.645433, 0.206908, 10.0901, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh10"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh4" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 3.85881, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh4"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh11" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.772026, 0, 0, 0, 1, 0, 0, 0, 1.01206, 0.206908, 11.1078, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh11"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh5" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 5.11337, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh5"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh9" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.746296, 0, 0, 0, 1, 0, 0, 0, 0.838377, 0.206908, 12.3623, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh9"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh6" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.679146, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 6.01573, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh6"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh12" type="CSGMesh" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.206908, 13.2647, -0.45332 )
-mesh = SubResource( 5 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Terrain2/palm/CSGMesh12"]
-transform = Transform( 0.667003, 0, -0.745055, 0.0369701, 0.998768, 0.0330971, 0.744137, -0.0496206, 0.666181, -9.53674e-007, 0.0159898, 0 )
-mesh = SubResource( 5 )
-
-[node name="leaf" type="Spatial" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 0.105164, 0, 0, 0, 1, 0, 15.2855, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf"]
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf"]
-transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf"]
-transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="leaf2" type="Spatial" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.211676, 0, 0.882426, 0, 0.105164, 0, -1.08246, 0, 0.211676, 9.53674e-007, 15.2855, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf2"]
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf2"]
-transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf2"]
-transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="leaf5" type="Spatial" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.739411, -0.0350207, 0.528304, 0.131428, 0.0971479, 0.324735, -0.731324, -0.0220181, 0.72682, 9.53674e-007, 15.2855, 3.8147e-006 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf5"]
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf5"]
-transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf5"]
-transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="leaf6" type="Spatial" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( 0.443408, 0.0662123, -0.575994, 0.172462, 0.0671482, 0.6772, 0.974179, -0.0515513, 0.174537, 0.831673, 15.2855, 7.62939e-006 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf6"]
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf6"]
-transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf6"]
-transform = Transform( 1.29164, 3.72529e-009, 0, 0, 2.12765, -8.34465e-007, -2.98023e-008, 9.31323e-009, 1.93158, -0.0116973, -0.509872, 2.68212 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="leaf3" type="Spatial" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( -0.939359, 0, 0.309633, -0.12422, 0.098022, -0.307214, -0.35403, -0.04219, -0.875568, -1.02738, 15.2855, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf3"]
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf3"]
-transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf3"]
-transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="leaf4" type="Spatial" parent="Terrain2/palm"]
-editor/display_folded = true
-transform = Transform( -0.529448, -0.0266681, -0.730935, -0.0891424, 0.101549, -0.220462, 0.934389, -0.00665217, -0.533854, -1.02738, 15.2855, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/palm/leaf4"]
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/palm/leaf4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.61976 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/palm/leaf4"]
-transform = Transform( 0.60701, 0, 0, 0, 0.60701, 0, 0, 0, 1.93158, 0, 0, 7.13274 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/palm/leaf4"]
-transform = Transform( 1.29164, 0, 0, 0, 2.12765, 0, 0, 0, 1.93158, 0, 0, 2.75342 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="MeshInstance" parent="Terrain2" instance=ExtResource( 1 )]
-transform = Transform( 0.924287, 0, 0.381699, 0, 1, 0, -0.381699, 0, 0.924287, 10.0721, -3.63001, 2.45556 )
+[node name="Boxes" parent="Terrain2" instance=ExtResource( 4 )]
+transform = Transform( 0.826598, 0, -0.562793, 0, 1, 0, 0.562793, 0, 0.826598, 15.2414, -3.63001, -22.8722 )
 
 [node name="Player" type="KinematicBody" parent="."]
 transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.881, 4.828, -5.111 )
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 
 [node name="Camera" type="Camera" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97054, 0 )
-environment = ExtResource( 3 )
+environment = ExtResource( 6 )
 current = true
 fov = 90.0
 
@@ -507,12 +223,15 @@ bias = 1.0
 softness = 0.01
 relaxation = 4.0
 
-[node name="gun" parent="Player/Camera/hand" instance=ExtResource( 4 )]
+[node name="gun" parent="Player/Camera/hand" instance=ExtResource( 7 )]
 transform = Transform( 0.049, 0, 0, 0, -1.7572e-008, 0.034, 0, -0.402, -1.48619e-009, -0.00388551, -0.00255537, -0.584092 )
 
 [node name="ui" type="Control" parent="Player/Camera"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Label" type="Label" parent="Player/Camera/ui"]
 margin_right = 216.0
@@ -524,23 +243,20 @@ valign = 1
 uppercase = true
 
 [node name="Panel" type="Panel" parent="Player/Camera/ui"]
-anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -128.0
-margin_top = -89.0
-margin_right = 129.0
-margin_bottom = -13.0
-custom_styles/panel = SubResource( 18 )
+margin_left = 8.59415
+margin_top = -127.822
+margin_right = 265.594
+margin_bottom = -9.8219
+custom_styles/panel = SubResource( 7 )
 
 [node name="Help" type="Label" parent="Player/Camera/ui/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 11.0
+margin_top = 19.0
 text = "WASD : MOVE
 SPACE : JUMP
-SHIFT : RUN
           F : FLASHLIGHT
   CLICK : SHOOT
 LEFT CLICK : AIM        - 
@@ -551,50 +267,55 @@ autowrap = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
-shape = SubResource( 12 )
+shape = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-anims/aim = SubResource( 13 )
+anims/aim = SubResource( 9 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, -0.289302, 0 )
-mesh = SubResource( 14 )
+mesh = SubResource( 10 )
 material/0 = null
 
-[node name="bot" parent="." instance=ExtResource( 5 )]
+[node name="bot" parent="." instance=ExtResource( 8 )]
 transform = Transform( -0.465025, 0, 0.885298, -0.00686889, 0.99997, -0.00360805, -0.885271, -0.00775884, -0.465011, 6.2614, 1.86753, -8.75094 )
 
 [node name="Gun Dynamic" type="RigidBody" parent="."]
+editor/display_folded = true
 transform = Transform( -0.0153912, 0.185066, 0.982606, 0.0342649, 0.982242, -0.184461, -0.999294, 0.0308298, -0.0214592, 10.513, 2.21708, -5.69315 )
 visible = false
-physics_material_override = SubResource( 15 )
+physics_material_override = SubResource( 11 )
 linear_damp = 1.0
 angular_damp = 1.0
 
 [node name="CollisionShape" type="CollisionShape" parent="Gun Dynamic"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.375562 )
-shape = SubResource( 16 )
+shape = SubResource( 12 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -1.62921e-007, -0.0420421, 0, 0.387698, -2.65555e-009, 0, 0, -0.336566 )
-mesh = SubResource( 17 )
+mesh = SubResource( 13 )
 
 [node name="CSGMesh2" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -3.17337e-007, -0.0818897, 0, 0.107022, -7.3305e-010, 0, -0.0558445, 0.0898399 )
-mesh = SubResource( 17 )
+mesh = SubResource( 13 )
 
 [node name="CSGMesh5" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0257344, 0, 0, 0, -2.45379e-007, -0.0633208, 0, 0.285727, -1.9571e-009, 0, -0.0296297, -0.235138 )
-mesh = SubResource( 17 )
+mesh = SubResource( 13 )
 
 [node name="CSGMesh4" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -0.0978192, -0.0225965, 0, 0.020398, -0.0516995, 0, -0.100367, -0.0700169 )
-mesh = SubResource( 17 )
+mesh = SubResource( 13 )
 
 [node name="CSGMesh3" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -5.07631e-007, -0.130995, 0, 0.0703418, -4.81808e-010, 0, -0.0558445, 0.259858 )
-mesh = SubResource( 17 )
+mesh = SubResource( 13 )
 
-[node name="Spatial" parent="." instance=ExtResource( 6 )]
+[node name="Spatial" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -12.2272 )
 visible = false
+
+[node name="Env sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true

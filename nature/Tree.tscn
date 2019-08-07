@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.001
+radial_segments = 4
+rings = 1
+
+[node name="Tree" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 7.35, 0, 0, 0, 1, 23.8261, 7.24506, -12.4428 )
+
+[node name="CSGMesh" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0627154, 2.41258 )
+mesh = SubResource( 1 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="."]
+transform = Transform( 0.3, 0, 0, 0, 0.172673, -0.0638035, 0, 2.19823, 0.00501183, 0, 0.177762, 4.80336 )
+mesh = SubResource( 1 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="."]
+transform = Transform( 0.0299815, -2.18722, -0.00498674, 0, 0.172673, -0.0638035, 0.298498, 0.219687, 0.000500874, -2.27524, -0.194069, 2.57478 )
+mesh = SubResource( 1 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="."]
+transform = Transform( -0.227765, 1.43069, 0.00326189, 0, 0.172673, -0.0638035, -0.195251, -1.66893, -0.00380506, 1.54349, -0.017987, 0.712561 )
+mesh = SubResource( 1 )

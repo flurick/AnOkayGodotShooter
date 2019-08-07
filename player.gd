@@ -7,6 +7,7 @@ var input_movement = Vector3(0,0,0)
 var output_movement  = Vector3(0,0,0)
 var speed_walking = 200
 var speed_running = 400
+var is_speed_limited = false
 var down = Vector3(0,1,0)
 var limit_neck_angle = 90
 var forward = -get_global_transform().basis.z
@@ -44,10 +45,10 @@ func _process(delta):
 	#apply
 	output_movement += forward * input_movement.z
 	output_movement += right * input_movement.x
-	if Input.is_key_pressed(KEY_SHIFT) or Input.is_key_pressed(KEY_CONTROL):
-		move_and_slide(output_movement*speed_running*delta, down)
-	else:
+	if is_speed_limited:
 		move_and_slide(output_movement*speed_walking*delta, down)
+	else:
+		move_and_slide(output_movement*speed_running*delta, down)
 	
 	#gravity
 	if Input.is_action_pressed("jump") and overheat_jump < overheat_limit_jump:
@@ -80,8 +81,10 @@ func _input(event):
 		if event.is_action("use_alt"):
 			$AnimationPlayer.playback_speed = 5
 			if event.is_pressed():
+				is_speed_limited = true
 				$AnimationPlayer.play("aim")
 			else:
+				is_speed_limited = false
 				$AnimationPlayer.play_backwards("aim")
 
 	if event is InputEventMouseMotion:

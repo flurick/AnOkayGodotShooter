@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 4.0
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.5
+radial_segments = 6
+
+[node name="Drain pipe" type="Spatial"]
+transform = Transform( 0.995717, 0, -0.0924584, 0, 1, 0, 0.0924584, 0, 0.995717, -0.325476, -9.53674e-007, -0.642378 )
+
+[node name="CSGMesh" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 1.49012e-008, 0, 1, 0, -1.49012e-008, 0, 1, 0, 2.17723, 0 )
+mesh = SubResource( 1 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="."]
+transform = Transform( 0.642788, -0.766044, 5.21541e-008, 0.766044, 0.642788, 0, 0, 0, 1, 0.163116, 0.148698, -0.0151463 )
+mesh = SubResource( 2 )
