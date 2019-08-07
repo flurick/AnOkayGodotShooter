@@ -59,7 +59,7 @@ extents = Vector3( 0.134963, 0.133912, 0.44157 )
 
 [sub_resource type="CylinderMesh" id=11]
 
-[node name="Spatial" type="Spatial"]
+[node name="World" type="Spatial"]
 
 [node name="Terrain2" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47978, 0 )
@@ -200,6 +200,7 @@ transform = Transform( -0.166717, 0, 0.986005, 0, 7.35, 0, -0.986005, 0, -0.1667
 transform = Transform( 0.826598, 0, -0.562793, 0, 1, 0, 0.562793, 0, 0.826598, 15.2414, -3.63001, -22.8722 )
 
 [node name="Player" type="KinematicBody" parent="."]
+editor/display_folded = true
 transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.881, 4.828, -5.111 )
 script = ExtResource( 5 )
 
