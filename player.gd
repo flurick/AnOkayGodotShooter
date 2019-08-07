@@ -10,8 +10,8 @@ var speed_running = 400
 var is_speed_limited = false
 var down = Vector3(0,1,0)
 var limit_neck_angle = 90
-var forward = -get_global_transform().basis.z
-var right = get_global_transform().basis.x
+onready var forward = -get_global_transform().basis.z
+onready var right = get_global_transform().basis.x
 
 #gravity
 var gravity = 10
@@ -79,7 +79,7 @@ func _input(event):
 				$Camera/hand/gun.use()
 
 		if event.is_action("use_alt"):
-			$AnimationPlayer.playback_speed = 5
+			$AnimationPlayer.playback_speed = 8
 			if event.is_pressed():
 				is_speed_limited = true
 				$AnimationPlayer.play("aim")

@@ -6,10 +6,10 @@
 [ext_resource path="res://shader_dev.tscn" type="PackedScene" id=4]
 [ext_resource path="res://player.gd" type="Script" id=5]
 [ext_resource path="res://night.tres" type="Environment" id=6]
-[ext_resource path="res://gun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://utility/gun.tscn" type="PackedScene" id=7]
 [ext_resource path="res://bot.tscn" type="PackedScene" id=8]
 [ext_resource path="res://particles.tscn" type="PackedScene" id=9]
-[ext_resource path="res://snd/Wind.wav" type="AudioStream" id=10]
+[ext_resource path="res://nature/Wind.wav" type="AudioStream" id=10]
 
 [sub_resource type="Shader" id=1]
 
@@ -25,14 +25,14 @@ subdivide_depth = 1
 
 [sub_resource type="PrismMesh" id=4]
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 1, 1, 1, 0.054902 )
 
-[sub_resource type="CapsuleShape" id=8]
+[sub_resource type="CapsuleShape" id=6]
 radius = 0.6
 height = 2.0
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera/hand:translation")
 tracks/0/interp = 1
@@ -46,18 +46,18 @@ tracks/0/keys = {
 "values": [ Vector3( 0.276485, -0.358211, -0.0438781 ), Vector3( 0.00400001, -0.037, 0.0861218 ) ]
 }
 
-[sub_resource type="CapsuleMesh" id=10]
+[sub_resource type="CapsuleMesh" id=8]
 radius = 0.4
 mid_height = 2.0
 
-[sub_resource type="PhysicsMaterial" id=11]
+[sub_resource type="PhysicsMaterial" id=9]
 rough = true
 absorbent = true
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.134963, 0.133912, 0.44157 )
 
-[sub_resource type="CylinderMesh" id=13]
+[sub_resource type="CylinderMesh" id=11]
 
 [node name="Spatial" type="Spatial"]
 
@@ -249,7 +249,7 @@ margin_left = 8.59415
 margin_top = -127.822
 margin_right = 265.594
 margin_bottom = -9.8219
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 5 )
 
 [node name="Help" type="Label" parent="Player/Camera/ui/Panel"]
 anchor_right = 1.0
@@ -267,14 +267,14 @@ autowrap = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-anims/aim = SubResource( 9 )
+anims/aim = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, -0.289302, 0 )
-mesh = SubResource( 10 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="bot" parent="." instance=ExtResource( 8 )]
@@ -284,33 +284,33 @@ transform = Transform( -0.465025, 0, 0.885298, -0.00686889, 0.99997, -0.00360805
 editor/display_folded = true
 transform = Transform( -0.0153912, 0.185066, 0.982606, 0.0342649, 0.982242, -0.184461, -0.999294, 0.0308298, -0.0214592, 10.513, 2.21708, -5.69315 )
 visible = false
-physics_material_override = SubResource( 11 )
+physics_material_override = SubResource( 9 )
 linear_damp = 1.0
 angular_damp = 1.0
 
 [node name="CollisionShape" type="CollisionShape" parent="Gun Dynamic"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.375562 )
-shape = SubResource( 12 )
+shape = SubResource( 10 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -1.62921e-007, -0.0420421, 0, 0.387698, -2.65555e-009, 0, 0, -0.336566 )
-mesh = SubResource( 13 )
+mesh = SubResource( 11 )
 
 [node name="CSGMesh2" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -3.17337e-007, -0.0818897, 0, 0.107022, -7.3305e-010, 0, -0.0558445, 0.0898399 )
-mesh = SubResource( 13 )
+mesh = SubResource( 11 )
 
 [node name="CSGMesh5" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0257344, 0, 0, 0, -2.45379e-007, -0.0633208, 0, 0.285727, -1.9571e-009, 0, -0.0296297, -0.235138 )
-mesh = SubResource( 13 )
+mesh = SubResource( 11 )
 
 [node name="CSGMesh4" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -0.0978192, -0.0225965, 0, 0.020398, -0.0516995, 0, -0.100367, -0.0700169 )
-mesh = SubResource( 13 )
+mesh = SubResource( 11 )
 
 [node name="CSGMesh3" type="CSGMesh" parent="Gun Dynamic"]
 transform = Transform( 0.0310325, 0, 0, 0, -5.07631e-007, -0.130995, 0, 0.0703418, -4.81808e-010, 0, -0.0558445, 0.259858 )
-mesh = SubResource( 13 )
+mesh = SubResource( 11 )
 
 [node name="Spatial" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -12.2272 )
@@ -318,4 +318,5 @@ visible = false
 
 [node name="Env sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+volume_db = -3.0
 autoplay = true
