@@ -20,11 +20,11 @@ var overheat_jump = 0
 var overheat_limit_jump = 30
 
 #aim
-var is_aiming = false
+var is_aiming = true
 
 
 func _ready():
-
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	$"Spawn Audio".play()
@@ -59,6 +59,16 @@ func _process(delta):
 func _input(event):
 
 	if event.is_action_type():
+		
+		
+		if event.is_action_pressed("Configure"):
+			is_aiming = !is_aiming
+			if is_aiming:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				$Camera/ui.visible = false
+			else:
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				$Camera/ui.visible = true
 
 		if event.is_action("ui_cancel"):
 			get_tree().reload_current_scene()
@@ -67,20 +77,22 @@ func _input(event):
 			if !event.is_pressed():
 				find_node("SpotLight").visible = !find_node("SpotLight").visible
 
-		if event.is_action("use"):
-			if event.is_pressed():
-				$Camera/hand/gun.use()
+		if is_aiming:
+			if event.is_action("use"):
+				if event.is_pressed():
+					$Camera/hand/gun.use()
+	
+			if event.is_action("use_alt"):
+				$AnimationPlayer.playback_speed = 8
+				if event.is_pressed():
+					is_speed_limited = true
+					$AnimationPlayer.play("aim")
+				else:
+					is_speed_limited = false
+					$AnimationPlayer.play_backwards("aim")
 
-		if event.is_action("use_alt"):
-			$AnimationPlayer.playback_speed = 8
-			if event.is_pressed():
-				is_speed_limited = true
-				$AnimationPlayer.play("aim")
-			else:
-				is_speed_limited = false
-				$AnimationPlayer.play_backwards("aim")
-
-	if event is InputEventMouseMotion:
-		rotate_y(event.get_relative().x * mouse_sense_x )
-		$Camera.rotate_x(event.get_relative().y * mouse_sense_y )
-		$Camera.rotation_degrees.x = clamp($Camera.rotation_degrees.x, -limit_neck_angle, limit_neck_angle)
+	if is_aiming:
+		if event is InputEventMouseMotion:
+			rotate_y(event.get_relative().x * mouse_sense_x )
+			$Camera.rotate_x(event.get_relative().y * mouse_sense_y )
+			$Camera.rotation_degrees.x = clamp($Camera.rotation_degrees.x, -limit_neck_angle, limit_neck_angle)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://night.tres" type="Environment" id=2]
@@ -6,8 +6,18 @@
 [ext_resource path="res://Biped.tscn" type="PackedScene" id=4]
 [ext_resource path="res://string hit.wav" type="AudioStream" id=5]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 1, 1, 1, 0.054902 )
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends HSlider
+
+func _on_HSlider_value_changed(value):
+	get_viewport().get_camera().fov = value
+"
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.6
@@ -55,11 +65,20 @@ relaxation = 4.0
 transform = Transform( 0.049, 0, 0, 0, -1.7572e-008, 0.034, 0, -0.402, -1.48619e-009, -0.00388551, -0.00255537, -0.584092 )
 
 [node name="ui" type="Control" parent="Camera"]
+editor/display_folded = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="bg" type="Panel" parent="Camera/ui"]
+self_modulate = Color( 1, 1, 1, 0.784314 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 4 )
 
 [node name="Label" type="Label" parent="Camera/ui"]
 margin_right = 216.0
@@ -70,19 +89,21 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="Panel" type="Panel" parent="Camera/ui"]
+[node name="Help" type="Panel" parent="Camera/ui"]
+self_modulate = Color( 1, 1, 1, 0.392157 )
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 8.59415
 margin_top = -127.822
 margin_right = 265.594
 margin_bottom = -9.8219
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 5 )
 
-[node name="Help" type="Label" parent="Camera/ui/Panel"]
+[node name="Label" type="Label" parent="Camera/ui/Help"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 19.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "WASD : MOVE
   CLICK : SHOOT
 LEFT CLICK : AIM        - 
@@ -91,6 +112,50 @@ LEFT CLICK : AIM        -
 align = 1
 valign = 1
 autowrap = true
+
+[node name="Settings" type="Panel" parent="Camera/ui"]
+self_modulate = Color( 1, 1, 1, 0.392157 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -173.0
+margin_top = -33.0
+margin_bottom = 73.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="GridContainer" type="GridContainer" parent="Camera/ui/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+columns = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="Camera/ui/Settings/GridContainer"]
+margin_right = 84.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "FOV :"
+align = 2
+valign = 1
+
+[node name="HSlider" type="HSlider" parent="Camera/ui/Settings/GridContainer"]
+margin_left = 88.0
+margin_right = 172.0
+margin_bottom = 16.0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 10.0
+max_value = 180.0
+value = 50.0
+ticks_on_borders = true
+script = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
@@ -105,3 +170,4 @@ transform = Transform( -1, 0, -1.49012e-007, 0, 1, 0, 1.49012e-007, 0, -1, -9.53
 [node name="Spawn Audio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 bus = "FX"
+[connection signal="value_changed" from="Camera/ui/Settings/GridContainer/HSlider" to="Camera/ui/Settings/GridContainer/HSlider" method="_on_HSlider_value_changed"]

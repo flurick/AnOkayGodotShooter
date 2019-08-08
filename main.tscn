@@ -92,3 +92,5 @@ material/0 = null
 transform = Transform( 20.3948, -0.382655, -3.94164, 1.59997, 10.928, 0.726367, 9.01063, -1.07432, 8.7926, -21.0756, 2.02845, 45.129 )
 mesh = SubResource( 4 )
 material/0 = null
+
+[editable path="Player"]
