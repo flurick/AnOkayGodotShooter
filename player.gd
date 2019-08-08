@@ -26,6 +26,8 @@ var is_aiming = false
 func _ready():
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	$"Spawn Audio".play()
 
 
 

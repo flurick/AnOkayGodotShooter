@@ -3,8 +3,8 @@
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://night.tres" type="Environment" id=2]
 [ext_resource path="res://utility/gun.tscn" type="PackedScene" id=3]
-[ext_resource path="res://utility/gun.gd" type="Script" id=4]
-[ext_resource path="res://Biped.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Biped.tscn" type="PackedScene" id=4]
+[ext_resource path="res://string hit.wav" type="AudioStream" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 0.054902 )
@@ -51,9 +51,8 @@ bias = 1.0
 softness = 0.01
 relaxation = 4.0
 
-[node name="gun" type="Spatial" parent="Camera/hand" instance=ExtResource( 3 )]
+[node name="gun" parent="Camera/hand" instance=ExtResource( 3 )]
 transform = Transform( 0.049, 0, 0, 0, -1.7572e-008, 0.034, 0, -0.402, -1.48619e-009, -0.00388551, -0.00255537, -0.584092 )
-script = ExtResource( 4 )
 
 [node name="ui" type="Control" parent="Camera"]
 anchor_right = 1.0
@@ -101,5 +100,9 @@ shape = SubResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/aim = SubResource( 3 )
 
-[node name="Scene Root" type="Spatial" parent="." instance=ExtResource( 5 )]
+[node name="Scene Root" parent="." instance=ExtResource( 4 )]
 transform = Transform( -1, 0, -1.49012e-007, 0, 1, 0, 1.49012e-007, 0, -1, -9.53674e-007, 0.207834, 0.495456 )
+
+[node name="Spawn Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "FX"
