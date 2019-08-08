@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://architecture/Drain pipe.tscn" type="PackedScene" id=1]
+[ext_resource path="res://architecture/cupbord.glb" type="PackedScene" id=2]
+
+[node name="Room" type="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0310106, 7.32159, 0.0181417 )
+width = 12.7948
+height = 4.75914
+depth = 8.40722
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
+operation = 2
+width = 11.456
+height = 4.46604
+depth = 7.80231
+
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
+operation = 2
+width = 3.65959
+height = 3.55471
+depth = 1.68275
+
+[node name="Light" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0051538, 0.999987, 0, -0.999987, -0.0051538, 0.187179, -1.88037, -0.422344 )
+light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
+light_energy = 2.8
+light_indirect_energy = 6.4
+light_specular = 1.0
+shadow_enabled = true
+omni_range = 13.0842
+
+[node name="Drain pipe" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.951801, 0, -0.306718, 0, 1, 0, 0.306718, 0, 0.951801, 6.80115, -1.88758, -3.95384 )
+
+[node name="Scene Root" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.69877, -1.24865, 2.29386 )
+
+[node name="Scene Root2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.69119, -1.24865, -2.84876 )

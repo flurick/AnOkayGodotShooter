@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://architecture/Drain pipe.tscn" type="PackedScene" id=1]
+[ext_resource path="res://architecture/Basic Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://architecture/Room.tscn" type="PackedScene" id=2]
 [ext_resource path="res://nature/Tree.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shader_dev.tscn" type="PackedScene" id=4]
@@ -25,143 +25,32 @@ subdivide_depth = 1
 
 [node name="World" type="Spatial"]
 
-[node name="Terrain2" type="Spatial" parent="."]
-editor/display_folded = true
+[node name="Terrain" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47978, 0 )
 
-[node name="Drain pipe2" parent="Terrain2" instance=ExtResource( 1 )]
-transform = Transform( 0.617751, 0, -0.786374, 0, 1, 0, 0.786374, 0, 0.617751, 24.3958, -4.18913, -21.2537 )
-
-[node name="Ground" type="CSGMesh" parent="Terrain2"]
+[node name="Ground" type="CSGMesh" parent="Terrain"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.51072, 0 )
 use_collision = true
 mesh = SubResource( 3 )
 
-[node name="Room" type="CSGBox" parent="Terrain2/Ground"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0310106, 7.32159, 0.0181417 )
-width = 12.7948
-height = 4.75914
-depth = 8.40722
+[node name="Room" parent="Terrain/Ground" instance=ExtResource( 1 )]
 
-[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
-operation = 2
-width = 11.456
-height = 4.46604
-depth = 7.80231
+[node name="Room2" parent="Terrain/Ground" instance=ExtResource( 1 )]
+transform = Transform( -0.705583, 0, -0.708628, 0, 1, 0, 0.708628, 0, -0.705583, 28.5107, 7.32159, -29.0471 )
 
-[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
-operation = 2
-width = 3.65959
-height = 3.55471
-depth = 1.68275
+[node name="Room5" parent="Terrain/Ground" instance=ExtResource( 1 )]
+transform = Transform( 0.71799, 0, -0.696054, 0, 1, 0, 0.696054, 0, 0.71799, 4.71394, 7.32159, -11.5516 )
 
-[node name="Light" type="OmniLight" parent="Terrain2/Ground/Room"]
-transform = Transform( 1, 0, 0, 0, -0.0051538, 0.999987, 0, -0.999987, -0.0051538, 0.187179, -1.88037, -0.422344 )
-light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
-light_energy = 2.8
-light_indirect_energy = 6.4
-light_specular = 1.0
-shadow_enabled = true
-omni_range = 13.0842
+[node name="Room3" parent="Terrain/Ground" instance=ExtResource( 2 )]
 
-[node name="Drain pipe" parent="Terrain2/Ground/Room" instance=ExtResource( 1 )]
-transform = Transform( 0.951801, 0, -0.306718, 0, 1, 0, 0.306718, 0, 0.951801, 6.80115, -1.88758, -3.95384 )
-
-[node name="Room2" type="CSGBox" parent="Terrain2/Ground"]
-transform = Transform( 0.581191, 0, -0.813767, 0, 1, 0, 0.813767, 0, 0.581191, 5.70813, 7.37969, -11.4317 )
-width = 12.7948
-height = 4.75914
-depth = 8.40722
-
-[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
-operation = 2
-width = 11.456
-height = 4.46604
-depth = 7.80231
-
-[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
-operation = 2
-width = 3.65959
-height = 3.55471
-depth = 1.68275
-
-[node name="Light2" type="OmniLight" parent="Terrain2/Ground/Room2"]
-transform = Transform( 0.581191, -0.813756, -0.00419399, 0, -0.0051538, 0.999987, -0.813767, -0.581183, -0.00299534, -2.18276, -1.93847, -1.21113 )
-light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
-light_energy = 2.8
-light_indirect_energy = 6.4
-light_specular = 1.0
-shadow_enabled = true
-omni_range = 13.0842
-
-[node name="Room3" parent="Terrain2/Ground" instance=ExtResource( 2 )]
-
-[node name="Room4" type="CSGBox" parent="Terrain2/Ground"]
-editor/display_folded = true
-transform = Transform( -0.84618, 0, -0.532898, 0, 1, 0, 0.532898, 0, -0.84618, 27.1242, 7.37969, -28.4247 )
-width = 12.7948
-height = 4.75914
-depth = 8.40722
-
-[node name="CSGBox2" type="CSGBox" parent="Terrain2/Ground/Room4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2541, 0 )
-operation = 2
-width = 11.456
-height = 4.46604
-depth = 7.80231
-
-[node name="CSGBox3" type="CSGBox" parent="Terrain2/Ground/Room4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3277, -0.78738, 0 )
-operation = 2
-width = 3.65959
-height = 3.55471
-depth = 1.68275
-
-[node name="Light3" type="OmniLight" parent="Terrain2/Ground/Room4"]
-transform = Transform( -0.997074, 0.076443, 0.000393977, 0, -0.0051538, 0.999987, 0.076444, 0.997061, 0.00513872, 0.0914955, -1.93847, 0.913559 )
-light_color = Color( 0.811765, 0.513726, 0.247059, 1 )
-light_indirect_energy = 6.4
-light_specular = 1.0
-shadow_enabled = true
-omni_range = 13.0842
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain2/Ground"]
-transform = Transform( 22.354, 0, 0, 0, 10.9874, 0, 0, 0, 9.66302, -30.4217, 1.58721, 22.8199 )
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Terrain2/Ground"]
-transform = Transform( 15.4147, 0, 6.99811, 0, 10.9874, 0, -16.1891, 0, 6.66336, -30.4217, 7.05939, -27.7643 )
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Terrain2/Ground"]
-transform = Transform( 15.4147, 0, 6.99811, 0, 10.9874, 0, -16.1891, 0, 6.66336, -30.4217, 7.05939, -0.373756 )
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Terrain2/Ground"]
-transform = Transform( 15.3314, -1.14043, 6.96031, 1.59997, 10.928, 0.726367, -16.1891, 0, 6.66336, -9.49636, 7.05939, 37.5039 )
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="MeshInstance5" type="MeshInstance" parent="Terrain2/Ground"]
-transform = Transform( 20.3948, -0.382655, -3.94164, 1.59997, 10.928, 0.726367, 9.01063, -1.07432, 8.7926, -21.0756, 7.05939, 45.129 )
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="Tree" parent="Terrain2" instance=ExtResource( 3 )]
+[node name="Tree" parent="Terrain" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 7.35, 0, 0, 0, 1, 23.8261, 3.29498, -12.4428 )
 
-[node name="Tree2" parent="Terrain2" instance=ExtResource( 3 )]
+[node name="Tree2" parent="Terrain" instance=ExtResource( 3 )]
 transform = Transform( -0.166717, 0, 0.986005, 0, 7.35, 0, -0.986005, 0, -0.166717, 15.5594, 3.29498, 20.0175 )
 
-[node name="Boxes" parent="Terrain2" instance=ExtResource( 4 )]
+[node name="Boxes" parent="Terrain" instance=ExtResource( 4 )]
 transform = Transform( 0.826598, 0, -0.562793, 0, 1, 0, 0.562793, 0, 0.826598, 15.2414, -3.63001, -22.8722 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
@@ -175,3 +64,31 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -40.2682 )
 [node name="Env sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = -3.0
+
+[node name="Hills" type="Spatial" parent="."]
+editor/display_folded = true
+
+[node name="MeshInstance" type="MeshInstance" parent="Hills"]
+transform = Transform( 22.354, 0, 0, 0, 10.9874, 0, 0, 0, 9.66302, -30.4217, -3.44373, 22.8199 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Hills"]
+transform = Transform( 15.4147, 0, 6.99811, 0, 10.9874, 0, -16.1891, 0, 6.66336, -30.4217, 2.02845, -27.7643 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Hills"]
+transform = Transform( 15.4147, 0, 6.99811, 0, 10.9874, 0, -16.1891, 0, 6.66336, -30.4217, 2.02845, -0.373756 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Hills"]
+transform = Transform( 15.3314, -1.14043, 6.96031, 1.59997, 10.928, 0.726367, -16.1891, 0, 6.66336, -9.49636, 2.02845, 37.5039 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="Hills"]
+transform = Transform( 20.3948, -0.382655, -3.94164, 1.59997, 10.928, 0.726367, 9.01063, -1.07432, 8.7926, -21.0756, 2.02845, 45.129 )
+mesh = SubResource( 4 )
+material/0 = null
