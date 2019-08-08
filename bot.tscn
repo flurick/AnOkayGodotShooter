@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ai.gd" type="Script" id=1]
 [ext_resource path="res://utility/gun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Biped.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.647059, 0.839216, 0.945098, 1 )
@@ -38,11 +39,11 @@ adjustment_brightness = 1.51
 adjustment_contrast = 1.4
 adjustment_saturation = 1.2
 
-[sub_resource type="CapsuleShape" id=6]
-radius = 0.6
+[sub_resource type="CapsuleShape" id=3]
+radius = 0.4
 height = 2.0
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera/hand:translation")
 tracks/0/interp = 1
@@ -56,19 +57,19 @@ tracks/0/keys = {
 "values": [  ]
 }
 
-[sub_resource type="SphereMesh" id=11]
+[sub_resource type="SphereMesh" id=5]
 radius = 0.4
 height = 1.0
 radial_segments = 4
 rings = 3
 
-[sub_resource type="CapsuleMesh" id=9]
+[sub_resource type="CapsuleMesh" id=6]
 radius = 0.2
 mid_height = 0.3
 radial_segments = 4
 rings = 1
 
-[sub_resource type="CapsuleMesh" id=10]
+[sub_resource type="CapsuleMesh" id=7]
 radius = 0.15
 mid_height = 0.3
 radial_segments = 4
@@ -119,39 +120,40 @@ valign = 1
 uppercase = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
-shape = SubResource( 6 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, -0.095041, 0 )
+shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/aim = SubResource( 7 )
+anims/aim = SubResource( 4 )
 
 [node name="standing" type="Spatial" parent="."]
 editor/display_folded = true
+visible = false
 
 [node name="head" type="CSGMesh" parent="standing"]
 transform = Transform( 0.514736, 0, -1.07382e-007, 0, 0.416425, 0, 1.11905e-008, 0, 0.37549, 0.145855, 1.25941, -0.103053 )
-mesh = SubResource( 11 )
+mesh = SubResource( 5 )
 
 [node name="Arm" type="MeshInstance" parent="standing"]
 editor/display_folded = true
 transform = Transform( 0.514696, 0.00640763, -7.1422e-010, 0, -1.82025e-008, -1.06188, -0.00467421, 0.375461, -4.18504e-008, 0.525983, 0.59001, -0.163189 )
-mesh = SubResource( 9 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="lower leg" type="MeshInstance" parent="standing/Arm"]
 transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
-mesh = SubResource( 10 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Arm2" type="MeshInstance" parent="standing"]
 editor/display_folded = true
 transform = Transform( 0.514696, 0.00640763, -7.14224e-010, 0, -1.82025e-008, -1.06188, -0.00467415, 0.375461, -4.18504e-008, -0.251461, 0.59001, -0.142004 )
-mesh = SubResource( 9 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="lower leg" type="MeshInstance" parent="standing/Arm2"]
 transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
-mesh = SubResource( 10 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="chest" type="CSGMesh" parent="standing"]
@@ -169,24 +171,27 @@ mesh = SubResource( 8 )
 [node name="thigh" type="MeshInstance" parent="standing"]
 editor/display_folded = true
 transform = Transform( 0.988961, -0.0123126, 2.00599e-009, 0, -2.12042e-007, -1.3015, -0.00898132, 0.733809, -1.19553e-007, 0.297595, -0.4477, -0.106109 )
-mesh = SubResource( 9 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="lower leg" type="MeshInstance" parent="standing/thigh"]
 transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
-mesh = SubResource( 10 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="thigh2" type="MeshInstance" parent="standing"]
 editor/display_folded = true
 transform = Transform( 0.988961, -0.0123126, 2.00599e-009, 0, -2.12042e-007, -1.3015, -0.00898132, 0.733809, -1.19553e-007, -0.0582552, -0.4477, -0.0574088 )
-mesh = SubResource( 9 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="lower leg" type="MeshInstance" parent="standing/thigh2"]
 transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
-mesh = SubResource( 10 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="gun" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.0585446, 0, 0, 0, 0.738643, 0, 0, 0, 0.044991, 0.55608, 0.702955, 0.0563893 )
+visible = false
+
+[node name="standing2" parent="." instance=ExtResource( 3 )]

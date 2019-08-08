@@ -49,7 +49,7 @@ func ai():
 	elif mode == MODE.investigate:
 		look_at( get_node(target).transform.origin, Vector3(0,1,0) )
 		
-	mode = MODE.investigate
+#	mode = MODE.investigate
 	
 	return
 

@@ -1,16 +1,13 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://architecture/Drain pipe.tscn" type="PackedScene" id=1]
 [ext_resource path="res://architecture/Room.tscn" type="PackedScene" id=2]
 [ext_resource path="res://nature/Tree.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shader_dev.tscn" type="PackedScene" id=4]
-[ext_resource path="res://player.gd" type="Script" id=5]
-[ext_resource path="res://night.tres" type="Environment" id=6]
-[ext_resource path="res://utility/gun.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Biped.tscn" type="PackedScene" id=8]
-[ext_resource path="res://bot.tscn" type="PackedScene" id=9]
-[ext_resource path="res://particles.tscn" type="PackedScene" id=10]
-[ext_resource path="res://nature/Wind.wav" type="AudioStream" id=11]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://particles.tscn" type="PackedScene" id=7]
+[ext_resource path="res://nature/Wind.wav" type="AudioStream" id=8]
 
 [sub_resource type="Shader" id=1]
 
@@ -26,30 +23,10 @@ subdivide_depth = 1
 
 [sub_resource type="PrismMesh" id=4]
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 1, 1, 1, 0.054902 )
-
-[sub_resource type="CapsuleShape" id=6]
-radius = 0.6
-height = 2.0
-
-[sub_resource type="Animation" id=7]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Camera/hand:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0.276485, -0.358211, -0.0438781 ), Vector3( 0.00400001, -0.037, 0.0861218 ) ]
-}
-
 [node name="World" type="Spatial"]
 
 [node name="Terrain2" type="Spatial" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47978, 0 )
 
 [node name="Drain pipe2" parent="Terrain2" instance=ExtResource( 1 )]
@@ -187,87 +164,14 @@ transform = Transform( -0.166717, 0, 0.986005, 0, 7.35, 0, -0.986005, 0, -0.1667
 [node name="Boxes" parent="Terrain2" instance=ExtResource( 4 )]
 transform = Transform( 0.826598, 0, -0.562793, 0, 1, 0, 0.562793, 0, 0.826598, 15.2414, -3.63001, -22.8722 )
 
-[node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.881, 1.3882, -5.111 )
-script = ExtResource( 5 )
+[node name="Player" parent="." instance=ExtResource( 5 )]
 
-[node name="Camera" type="Camera" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97054, 0 )
-environment = ExtResource( 6 )
-current = true
-fov = 90.0
-
-[node name="hand" type="Spatial" parent="Player/Camera"]
-transform = Transform( 1, 0, 2.98023e-008, 0, 1, 0, -2.98023e-008, 0, 1, 0.00400001, -0.037, 0.0861218 )
-
-[node name="ConeTwistJoint" type="ConeTwistJoint" parent="Player/Camera/hand"]
-transform = Transform( 0.0366218, 0, -0.999329, 0, 1, 0, 0.999329, 0, 0.0366218, -0.00676727, -0.158679, -0.489577 )
-nodes/node_a = NodePath("../../..")
-nodes/node_b = NodePath("../../../../Gun Dynamic")
-collision/exclude_nodes = false
-swing_span = 180.0
-twist_span = 10.0
-bias = 1.0
-softness = 0.01
-relaxation = 4.0
-
-[node name="gun" parent="Player/Camera/hand" instance=ExtResource( 7 )]
-transform = Transform( 0.049, 0, 0, 0, -1.7572e-008, 0.034, 0, -0.402, -1.48619e-009, -0.00388551, -0.00255537, -0.584092 )
-
-[node name="ui" type="Control" parent="Player/Camera"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Label" type="Label" parent="Player/Camera/ui"]
-margin_right = 216.0
-margin_bottom = 97.0
-text = "---
-"
-align = 1
-valign = 1
-uppercase = true
-
-[node name="Panel" type="Panel" parent="Player/Camera/ui"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 8.59415
-margin_top = -127.822
-margin_right = 265.594
-margin_bottom = -9.8219
-custom_styles/panel = SubResource( 5 )
-
-[node name="Help" type="Label" parent="Player/Camera/ui/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 19.0
-text = "WASD : MOVE
-SPACE : JUMP
-          F : FLASHLIGHT
-  CLICK : SHOOT
-LEFT CLICK : AIM        - 
-"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="CollisionShape" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, 0, 0 )
-shape = SubResource( 6 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-anims/aim = SubResource( 7 )
-
-[node name="standing" parent="Player" instance=ExtResource( 8 )]
-
-[node name="bot" parent="." instance=ExtResource( 9 )]
+[node name="bot" parent="." instance=ExtResource( 6 )]
 transform = Transform( -0.465025, 0, 0.885298, -0.00686889, 0.99997, -0.00360805, -0.885271, -0.00775884, -0.465011, 6.2614, 1.86753, -8.75094 )
 
-[node name="Spatial" parent="." instance=ExtResource( 10 )]
+[node name="Spatial" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -40.2682 )
 
 [node name="Env sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 8 )
 volume_db = -3.0
