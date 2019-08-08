@@ -33,11 +33,10 @@ radial_segments = 16
 rings = 1
 
 [node name="gun" type="Spatial"]
-transform = Transform( 0.0486803, 0, 0, 0, 4.84675e-008, 0.0343221, 0, -0.641972, 2.59125e-009, -0.00388551, -0.00255537, -0.584092 )
+transform = Transform( 0.0486803, 0, 0, 0, -2.80615e-008, 0.0343221, 0, -0.641972, -1.50027e-009, -0.00388551, -0.00255537, -0.584092 )
 script = ExtResource( 1 )
 
 [node name="Impact Area" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 visible = false
 
 [node name="Sprite3D" type="Sprite3D" parent="Impact Area"]

@@ -7,9 +7,10 @@
 [ext_resource path="res://player.gd" type="Script" id=5]
 [ext_resource path="res://night.tres" type="Environment" id=6]
 [ext_resource path="res://utility/gun.tscn" type="PackedScene" id=7]
-[ext_resource path="res://bot.tscn" type="PackedScene" id=8]
-[ext_resource path="res://particles.tscn" type="PackedScene" id=9]
-[ext_resource path="res://nature/Wind.wav" type="AudioStream" id=10]
+[ext_resource path="res://Biped.tscn" type="PackedScene" id=8]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=9]
+[ext_resource path="res://particles.tscn" type="PackedScene" id=10]
+[ext_resource path="res://nature/Wind.wav" type="AudioStream" id=11]
 
 [sub_resource type="Shader" id=1]
 
@@ -45,10 +46,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 0.276485, -0.358211, -0.0438781 ), Vector3( 0.00400001, -0.037, 0.0861218 ) ]
 }
-
-[sub_resource type="CapsuleMesh" id=8]
-radius = 0.4
-mid_height = 2.0
 
 [node name="World" type="Spatial"]
 
@@ -191,7 +188,7 @@ transform = Transform( -0.166717, 0, 0.986005, 0, 7.35, 0, -0.986005, 0, -0.1667
 transform = Transform( 0.826598, 0, -0.562793, 0, 1, 0, 0.562793, 0, 0.826598, 15.2414, -3.63001, -22.8722 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.881, 4.828, -5.111 )
+transform = Transform( 0.499395, 0, 0.866375, 0, 1, 0, -0.866375, 0, 0.499395, 10.881, 1.3882, -5.111 )
 script = ExtResource( 5 )
 
 [node name="Camera" type="Camera" parent="Player"]
@@ -263,17 +260,14 @@ shape = SubResource( 6 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 anims/aim = SubResource( 7 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Player"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0, -0.289302, 0 )
-mesh = SubResource( 8 )
-material/0 = null
+[node name="standing" parent="Player" instance=ExtResource( 8 )]
 
-[node name="bot" parent="." instance=ExtResource( 8 )]
+[node name="bot" parent="." instance=ExtResource( 9 )]
 transform = Transform( -0.465025, 0, 0.885298, -0.00686889, 0.99997, -0.00360805, -0.885271, -0.00775884, -0.465011, 6.2614, 1.86753, -8.75094 )
 
-[node name="Spatial" parent="." instance=ExtResource( 9 )]
+[node name="Spatial" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20758, 1.30388, -40.2682 )
 
 [node name="Env sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = -3.0

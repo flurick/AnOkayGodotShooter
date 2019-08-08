@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ai.gd" type="Script" id=1]
-[ext_resource path="res://utility/gun.gd" type="Script" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://utility/gun.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.647059, 0.839216, 0.945098, 1 )
@@ -39,12 +38,6 @@ adjustment_brightness = 1.51
 adjustment_contrast = 1.4
 adjustment_saturation = 1.2
 
-[sub_resource type="CylinderMesh" id=3]
-
-[sub_resource type="CubeMesh" id=4]
-
-[sub_resource type="CylinderMesh" id=5]
-
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.6
 height = 2.0
@@ -63,15 +56,9 @@ tracks/0/keys = {
 "values": [  ]
 }
 
-[sub_resource type="SphereMesh" id=10]
+[sub_resource type="SphereMesh" id=11]
 radius = 0.4
 height = 1.0
-radial_segments = 4
-rings = 3
-
-[sub_resource type="SphereMesh" id=8]
-radius = 0.8
-height = 1.5
 radial_segments = 4
 rings = 3
 
@@ -81,14 +68,20 @@ mid_height = 0.3
 radial_segments = 4
 rings = 1
 
-[sub_resource type="CapsuleMesh" id=11]
+[sub_resource type="CapsuleMesh" id=10]
 radius = 0.15
 mid_height = 0.3
 radial_segments = 4
 rings = 1
 
+[sub_resource type="SphereMesh" id=8]
+radius = 0.8
+height = 1.5
+radial_segments = 4
+rings = 3
+
 [node name="bot" type="KinematicBody"]
-transform = Transform( -0.465025, 0, 0.885298, 0, 1, 0, -0.885298, 0, -0.465025, 11.7275, 1.86753, -4.14012 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7275, 1.86753, -4.14012 )
 script = ExtResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
@@ -112,91 +105,6 @@ bias = 1.0
 softness = 0.01
 relaxation = 4.0
 
-[node name="gun" type="CSGMesh" parent="Camera/hand"]
-transform = Transform( 0.0486803, 0, 0, 0, 4.84675e-008, 0.0343221, 0, -0.641972, 2.59125e-009, -0.00388551, -0.00255537, -0.584092 )
-mesh = SubResource( 3 )
-script = ExtResource( 2 )
-
-[node name="sight" type="Spatial" parent="Camera/hand/gun"]
-editor/display_folded = true
-transform = Transform( 0.205422, 0, 0, 0, -1.27356e-008, -0.015577, 0, 0.291357, -6.80894e-010, 0, -0.932857, -0.0524902 )
-
-[node name="CSGMesh" type="CSGMesh" parent="Camera/hand/gun/sight"]
-transform = Transform( 1, 0, 0, 0, 0.520001, 0, 0, 0, 1, 0, 3.72076, -12.8191 )
-mesh = SubResource( 4 )
-
-[node name="CSGMesh2" type="CSGMesh" parent="Camera/hand/gun/sight/CSGMesh"]
-transform = Transform( 0.0800001, 0, 0, 0, 0.55, 0, 0, 0, 1.1, 0, 1, 0 )
-operation = 2
-mesh = SubResource( 4 )
-
-[node name="CSGMesh3" type="CSGMesh" parent="Camera/hand/gun/sight"]
-transform = Transform( 1.14, 0, 0, 0, 2.14, 0, 0, 0, 1, 0, 3.72076, -120.076 )
-operation = 2
-mesh = SubResource( 4 )
-
-[node name="mag" type="Spatial" parent="Camera/hand/gun"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, -1.13687e-012, 1, 0, 0.208812, -1.53743 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.51532e-007, 0 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.48727e-007, -0.694992 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance6" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.45781e-007, -1.42479 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance7" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.42996e-007, -2.11472 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.50111e-007, -0.352043 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance4" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.47306e-007, -1.04702 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance5" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.4436e-007, -1.77683 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="MeshInstance8" type="MeshInstance" parent="Camera/hand/gun/mag"]
-transform = Transform( 0.2, 0, 0, 0, 0.0633736, -9.41354e-007, 0, 7.94658e-007, 0.2, 0, 3.41575e-007, -2.46677 )
-mesh = SubResource( 5 )
-material/0 = null
-
-[node name="Sprite3D" type="Sprite3D" parent="Camera/hand/gun"]
-transform = Transform( 20, 0, 0, 0, -5.6426e-006, -20, 0, 20, -5.64259e-006, 0, 1.072, 2.31975 )
-visible = false
-texture = ExtResource( 3 )
-
-[node name="Collision" type="RayCast" parent="Camera/hand/gun"]
-transform = Transform( 20.5422, 0, 0, 0, -1.5577, -4.95139e-008, 0, 9.26124e-007, -29.1357, 0.079834, -0.530481, 0.100754 )
-enabled = true
-
-[node name="SpotLight" type="SpotLight" parent="Camera/hand/gun"]
-transform = Transform( 18.8527, -8.15193, -0.32343, 0.00510275, 0.0735335, -1.55596, 11.5709, 26.708, 1.30015, -0.374634, 0.738578, 2.74306 )
-light_color = Color( 0.694118, 0.847059, 0.945098, 1 )
-light_energy = 0.3
-spot_range = 30.0
-spot_attenuation = 2.54912
-spot_angle = 18.0
-spot_angle_attenuation = 1.8025
-
 [node name="ui" type="Control" parent="Camera"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -217,35 +125,68 @@ shape = SubResource( 6 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/aim = SubResource( 7 )
 
-[node name="head" type="CSGMesh" parent="."]
-transform = Transform( 0.514697, 0, 0.00629978, 0, 0.416425, 0, 0.00629972, 0, 0.506013, 0.145855, 1.15276, -0.103053 )
+[node name="standing" type="Spatial" parent="."]
+editor/display_folded = true
+
+[node name="head" type="CSGMesh" parent="standing"]
+transform = Transform( 0.514736, 0, -1.07382e-007, 0, 0.416425, 0, 1.11905e-008, 0, 0.37549, 0.145855, 1.25941, -0.103053 )
+mesh = SubResource( 11 )
+
+[node name="Arm" type="MeshInstance" parent="standing"]
+editor/display_folded = true
+transform = Transform( 0.514696, 0.00640763, -7.1422e-010, 0, -1.82025e-008, -1.06188, -0.00467421, 0.375461, -4.18504e-008, 0.525983, 0.59001, -0.163189 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="lower leg" type="MeshInstance" parent="standing/Arm"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
 mesh = SubResource( 10 )
+material/0 = null
 
-[node name="chest" type="CSGMesh" parent="."]
-transform = Transform( 0.514697, 0, 0.0062999, 0, 0.416425, 0, 0.00629972, 0, 0.506013, 0.145854, 0.618759, -0.103054 )
-mesh = SubResource( 8 )
-
-[node name="chest2" type="CSGMesh" parent="."]
-transform = Transform( 0.514697, 0, 0.0062999, 0, 0.416425, 0, 0.00629972, 0, 0.506013, 0.145854, 0.118092, -0.103054 )
-mesh = SubResource( 8 )
-
-[node name="Leg" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0.368957, -0.390226, -0.245837 )
+[node name="Arm2" type="MeshInstance" parent="standing"]
+editor/display_folded = true
+transform = Transform( 0.514696, 0.00640763, -7.14224e-010, 0, -1.82025e-008, -1.06188, -0.00467415, 0.375461, -4.18504e-008, -0.251461, 0.59001, -0.142004 )
 mesh = SubResource( 9 )
 material/0 = null
 
-[node name="Leg4" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, 0.368956, -0.976652, -0.245838 )
-mesh = SubResource( 11 )
+[node name="lower leg" type="MeshInstance" parent="standing/Arm2"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 10 )
 material/0 = null
 
-[node name="Leg2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, -0.111165, -0.390226, -0.0843048 )
+[node name="chest" type="CSGMesh" parent="standing"]
+transform = Transform( 0.471596, 0, 0, 0, 0.416425, 0, 0, 0, 0.332454, 0.145854, 0.77048, -0.103054 )
+mesh = SubResource( 8 )
+
+[node name="gut" type="CSGMesh" parent="standing"]
+transform = Transform( 0.391665, 0, 1.16725e-008, 0, 0.416425, 0, 9.29956e-009, 0, 0.312041, 0.145854, 0.321943, -0.121571 )
+mesh = SubResource( 8 )
+
+[node name="hips" type="CSGMesh" parent="standing"]
+transform = Transform( 0.481226, 0, 1.43417e-008, 0, 0.416425, 0, 1.02662e-008, 0, 0.344475, 0.145854, 0.000700355, -0.0711284 )
+mesh = SubResource( 8 )
+
+[node name="thigh" type="MeshInstance" parent="standing"]
+editor/display_folded = true
+transform = Transform( 0.988961, -0.0123126, 2.00599e-009, 0, -2.12042e-007, -1.3015, -0.00898132, 0.733809, -1.19553e-007, 0.297595, -0.4477, -0.106109 )
 mesh = SubResource( 9 )
 material/0 = null
 
-[node name="Leg3" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-007, -1, 0, 1, -1.62921e-007, -0.111165, -0.976652, -0.0843048 )
-mesh = SubResource( 11 )
+[node name="lower leg" type="MeshInstance" parent="standing/thigh"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 10 )
 material/0 = null
-[connection signal="visibility_changed" from="Camera/hand/gun/Collision" to="Camera/hand/gun" method="_on_Collision_visibility_changed"]
+
+[node name="thigh2" type="MeshInstance" parent="standing"]
+editor/display_folded = true
+transform = Transform( 0.988961, -0.0123126, 2.00599e-009, 0, -2.12042e-007, -1.3015, -0.00898132, 0.733809, -1.19553e-007, -0.0582552, -0.4477, -0.0574088 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="lower leg" type="MeshInstance" parent="standing/thigh2"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="gun" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.0585446, 0, 0, 0, 0.738643, 0, 0, 0, 0.044991, 0.55608, 0.702955, 0.0563893 )

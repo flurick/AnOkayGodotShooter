@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="SphereMesh" id=11]
+radius = 0.4
+height = 1.0
+radial_segments = 4
+rings = 3
+
+[sub_resource type="CapsuleMesh" id=9]
+radius = 0.2
+mid_height = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CapsuleMesh" id=12]
+radius = 0.15
+mid_height = 0.3
+radial_segments = 4
+rings = 1
+
+[sub_resource type="SphereMesh" id=8]
+radius = 0.8
+height = 1.5
+radial_segments = 4
+rings = 3
+
+[node name="standing" type="Spatial"]
+editor/display_folded = true
+
+[node name="head" type="CSGMesh" parent="."]
+transform = Transform( 0.514736, 0, -1.07382e-007, 0, 0.416425, 0, 1.11905e-008, 0, 0.37549, 0.145855, 1.25941, -0.103053 )
+mesh = SubResource( 11 )
+
+[node name="Arm" type="MeshInstance" parent="."]
+editor/display_folded = true
+transform = Transform( 0.514696, 0.00640763, -7.1422e-010, 0, -1.82025e-008, -1.06188, -0.00467421, 0.375461, -4.18504e-008, 0.525983, 0.59001, -0.163189 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="lower leg" type="MeshInstance" parent="Arm"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Arm2" type="MeshInstance" parent="."]
+editor/display_folded = true
+transform = Transform( 0.514696, 0.00640763, -7.14224e-010, 0, -1.82025e-008, -1.06188, -0.00467415, 0.375461, -4.18504e-008, -0.251461, 0.59001, -0.142004 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="lower leg" type="MeshInstance" parent="Arm2"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="chest" type="CSGMesh" parent="."]
+transform = Transform( 0.471596, 0, 0, 0, 0.416425, 0, 0, 0, 0.332454, 0.145854, 0.77048, -0.103054 )
+mesh = SubResource( 8 )
+
+[node name="gut" type="CSGMesh" parent="."]
+transform = Transform( 0.391665, 0, 1.16725e-008, 0, 0.416425, 0, 9.29956e-009, 0, 0.312041, 0.145854, 0.321943, -0.121571 )
+mesh = SubResource( 8 )
+
+[node name="hips" type="CSGMesh" parent="."]
+transform = Transform( 0.481226, 0, 1.43417e-008, 0, 0.416425, 0, 1.02662e-008, 0, 0.344475, 0.145854, 0.000700355, -0.0711284 )
+mesh = SubResource( 8 )
+
+[node name="thigh" type="MeshInstance" parent="."]
+editor/display_folded = true
+transform = Transform( 0.988961, -0.0123126, 2.00599e-009, 0, -2.12042e-007, -1.3015, -0.00898132, 0.733809, -1.19553e-007, 0.297595, -0.4477, -0.106109 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="lower leg" type="MeshInstance" parent="thigh"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="thigh2" type="MeshInstance" parent="."]
+editor/display_folded = true
+transform = Transform( 0.988961, -0.0123126, 2.00599e-009, 0, -2.12042e-007, -1.3015, -0.00898132, 0.733809, -1.19553e-007, -0.0582552, -0.4477, -0.0574088 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="lower leg" type="MeshInstance" parent="thigh2"]
+transform = Transform( 1, 0, -7.10543e-015, 0, 1, 0, 0, -1.42109e-014, 1, -1.19209e-006, -9.53674e-007, 0.586426 )
+mesh = SubResource( 12 )
+material/0 = null

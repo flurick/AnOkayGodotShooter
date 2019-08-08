@@ -31,14 +31,26 @@ var stress = 0.1
 var senses = [forward]
 var ai_jump = false
 var target = "../Player"
+enum MODE{
+	idle,
+	investigate,
+	use,
+	hide
+}
+var mode = MODE.idle
 
 func ai():
 
 #	rotate_y(randf()*0.1)
-	look_at( get_node(target).transform.origin, Vector3(0,1,0) )
 #	$Camera.rotate_x(event.get_relative().y * mouse_sense_y )
 #	$Camera.rotation_degrees.x = clamp($Camera.rotation_degrees.x, -limit_neck_angle, limit_neck_angle)
-
+	if mode == MODE.idle:
+		rotate_y((randf()-0.5)*0.1)
+	elif mode == MODE.investigate:
+		look_at( get_node(target).transform.origin, Vector3(0,1,0) )
+		
+	mode = MODE.investigate
+	
 	return
 
 func _process(delta):
