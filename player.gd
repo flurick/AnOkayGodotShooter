@@ -53,16 +53,7 @@ func _process(delta):
 		move_and_slide(output_movement*speed_running*delta, down)
 	
 	#gravity
-	if Input.is_action_pressed("jump") and overheat_jump < overheat_limit_jump:
-		move_and_slide(down*speed_jump, down)
-		overheat_jump += 1
-	else:
-		move_and_slide(-down*gravity, down)
-	if is_on_floor():
-		overheat_jump = 0
-	
-	$Camera/ui/Label.text = str( overheat_jump, "floor:",is_on_floor()," ceiling:",is_on_ceiling()," wall:",is_on_wall() )
-
+	move_and_slide(-down*gravity, down)
 
 
 func _input(event):
